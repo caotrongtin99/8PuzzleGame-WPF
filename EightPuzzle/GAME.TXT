@@ -1,0 +1,6 @@
+IsEnded=False
+Time: 00:02:21
+Bitmap=file:///C:/Users/caotr/Downloads/ctt.png
+1 2 0 
+4 5 3 
+7 8 6 
