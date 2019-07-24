@@ -9,10 +9,16 @@
     <Canvas Background="White" Name="container" MouseLeftButtonDown="Container_MouseLeftButtonDown"
             MouseMove="Container_MouseMove"
             MouseLeftButtonUp="Container_MouseLeftButtonUp" Margin="10 10 0 0">
-        <Button Name="openButton" Content="Choose Image" Width="80" Height="25" Click="OpenButton_Click" Canvas.Left="627" Canvas.Top="155"/>
+        <Button Name="openButton"  Width="123" Height="25" Click="OpenButton_Click" Canvas.Left="612" Canvas.Top="155">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="images/image.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="3 0 2 0" RenderTransformOrigin="0.65,0.5"/>
+                <TextBlock Text="Choose image" VerticalAlignment="Center" FontWeight="SemiBold" />
+            </StackPanel>
+        </Button>
 
         <Border BorderBrush="Black" BorderThickness="1" Height="180" Width="154" Canvas.Left="598" Canvas.Top="23" />
-        <Border BorderBrush="Black" BorderThickness="1" Height="111" Width="128" Canvas.Left="612" Canvas.Top="30"/>
+        <Border BorderBrush="Black" BorderThickness="1" Height="118" Width="136" Canvas.Left="608" Canvas.Top="27"/>
+        <Border Name ="mainFrame" BorderBrush="Black" IsHitTestVisible="True" BorderThickness="1" Width="436" Canvas.Top="-2" Canvas.Left="-2"/>
 
         <Image Name ="originalImage" Canvas.Top="30" Canvas.Left="612" Height="111" Width="128" Source="images/demo.png" RenderOptions.BitmapScalingMode="HighQuality" Stretch="Fill"/>
 

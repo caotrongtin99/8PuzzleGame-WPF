@@ -49,12 +49,15 @@ namespace EightPuzzle
             var screen = new OpenFileDialog();
 
             if (screen.ShowDialog() == true)
-            {
+            { 
                 bitmap = new BitmapImage(new Uri(screen.FileName));
-                var fullImageWidth = 330;
+                Debug.WriteLine(screen.FileName);
+                var orgImage = bitmap;
+                originalImage.Source = new BitmapImage(new Uri(screen.FileName));
+                var fullImageWidth = 420;
                 imageWidth = (int)fullImageWidth / 3;
                 imageHeight = (int)(fullImageWidth * bitmap.Height / bitmap.Width) / 3;
-
+                mainFrame.Height = imageHeight * 3 + 15;
                 var rng = new Random();
                 var pool = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
                 var pooli = new List<int> { 0, 1, 2, 0, 1, 2, 0, 1 };
@@ -151,6 +154,8 @@ namespace EightPuzzle
         int newj = -1;
         int oldi = -1;
         int oldj = -1;
+        //int maxi = ;
+        int maxj = -1;
         private void Container_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             isDragging = true;
@@ -160,7 +165,6 @@ namespace EightPuzzle
             oldi = (int)(position.X / (imageWidth + 5));
             oldj = (int)(position.Y / (imageHeight + 5));
 
-            this.Title = $"{oldi} - {oldj}";
             if (oldi < 3 && oldj < 3)
             {
                 selectedImage = images[oldi, oldj];
@@ -176,7 +180,7 @@ namespace EightPuzzle
                 var i = (int)(newPos.X / (imageWidth + 5));
                 var j = (int)(newPos.Y / (imageHeight + 5));
 
-                this.Title = $"{i} - {j}";
+
                 if (i < 3 && j < 3)
                 {
                     newi = i;
@@ -185,7 +189,14 @@ namespace EightPuzzle
                     Canvas.SetLeft(selectedImage, newPos.X);
                     Canvas.SetTop(selectedImage, newPos.Y);
                 }
-
+                else
+                {
+                    isDragging = false;
+                 
+                    Canvas.SetLeft(selectedImage, oldi * (imageWidth + 5));
+                    Canvas.SetTop(selectedImage, oldj * (imageHeight + 5));
+                    
+                }
 
             }
         }
@@ -193,38 +204,44 @@ namespace EightPuzzle
         private void Container_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             isDragging = false;
-            if (newi < 3 && newj < 3)
+
+            if (selectedImage != null && ((newi == oldi + 1 && newj == oldj && oldi < 2) || (newi == oldi - 1 && newj == oldj && oldi >= 1)
+                || (newi == oldi && newj == oldj + 1 && oldj < 2) || (newi == oldi && newj == oldj - 1 && oldj >= 1))
+                && newi < 3 && newj < 3)
             {
-                if (selectedImage != null)
-                {
-                    Canvas.SetLeft(selectedImage, newi * (imageWidth + 5));
-                    Canvas.SetTop(selectedImage, newj * (imageHeight + 5));
-                    images[newi, newj] = images[oldi, oldj];
-                    SwapNum(ref imgID[newj, newi], ref imgID[oldj, oldi]);
-
-                }
-
-                for (int i = 0; i < 3; i++)
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        Debug.Write(imgID[i, j]);
-                    }
-                    Debug.WriteLine("");
-                }
+                Canvas.SetLeft(selectedImage, newi * (imageWidth + 5));
+                Canvas.SetTop(selectedImage, newj * (imageHeight + 5));
+                images[newi, newj] = images[oldi, oldj];
+                SwapNum(ref imgID[newj, newi], ref imgID[oldj, oldi]);
+            }
+            else
+            {
+                Canvas.SetLeft(selectedImage, oldi * (imageWidth + 5));
+                Canvas.SetTop(selectedImage, oldj * (imageHeight + 5));
             }
 
-            if (isWin() == true)
+            for (int i = 0; i < 3; i++)
             {
+                for (int j = 0; j < 3; j++)
+                {
+                    Debug.Write(imgID[i, j]);
+                }
+                Debug.WriteLine("");
+            }
+
+
+            if (isWin() == true) 
+            {
+                Timer.Stop();
                 MessageBox.Show("You Win");
                 isEnded = true;
             }
         }
 
         // TIMER
+
         int time = 180;
         private DispatcherTimer Timer;
-
         private void playButton_Click(object sender, RoutedEventArgs e)
         {
             Timer = new DispatcherTimer();
@@ -287,19 +304,27 @@ namespace EightPuzzle
             {
 
                 var reader = new StreamReader(screen.FileName);
-
+                // 1st line
                 var firstLine = reader.ReadLine();
                 var tokens = firstLine.Split(new String[] { "=" },StringSplitOptions.RemoveEmptyEntries);
-                isEnded = bool.Parse(tokens[1]);
+                Debug.Write(tokens[1]);
+                //isEnded = bool.Parse(tokens[1]);
+                // 2nd Line
                 var secondLine = reader.ReadLine();
                 tokens = secondLine.Split(new String[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
                 var numMin = int.Parse(tokens[2]);
                 var numSecond = int.Parse(tokens[3]);
                 time = numMin * 60 + numSecond;
                 Timer_Tick(sender, e);
+                // doc bitmap
                 var thirdLine = reader.ReadLine();
-                tokens = thirdLine.Split(new String[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
-                bitmap = new BitmapImage(new Uri(tokens[1])); 
+                tokens = thirdLine.Split(new String[] { "///" }, StringSplitOptions.RemoveEmptyEntries);
+                Debug.WriteLine(tokens[1]);
+                bitmap= new BitmapImage(new Uri(tokens[1]));
+                originalImage.Source = new BitmapImage(new Uri(tokens[1]));
+                Debug.WriteLine(bitmap);
+
+                // Game state
                 int[,] a = new int[3, 3];
                 var line = reader.ReadLine(); Debug.WriteLine(line);
                 tokens = line.Split(new String[] { " " },StringSplitOptions.RemoveEmptyEntries);
@@ -343,7 +368,7 @@ namespace EightPuzzle
                         var imageView = new Image();
                         imageView.Source = cropped;
                         imageView.Width = imageWidth;
-                        imageView.Height = imageHeight;
+                        imageView.Height = imageHeight; 
                         container.Children.Add(imageView);
 
                         Canvas.SetLeft(imageView, i * (imageWidth + padding));
@@ -352,8 +377,6 @@ namespace EightPuzzle
                         images[i, j] = imageView;
                         imgID[j, i] = a[i, j];
 
-                        temp_pooli.RemoveAt(k-1);
-                        temp_poolj.RemoveAt(k -1);
                         Debug.WriteLine("COUNT");
 
                     }
