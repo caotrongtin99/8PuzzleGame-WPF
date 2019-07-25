@@ -205,13 +205,14 @@ namespace EightPuzzle
         {
             isDragging = false;
 
-            if (selectedImage != null && ((newi == oldi + 1 && newj == oldj && oldi < 2) || (newi == oldi - 1 && newj == oldj && oldi >= 1)
-                || (newi == oldi && newj == oldj + 1 && oldj < 2) || (newi == oldi && newj == oldj - 1 && oldj >= 1))
+            if (selectedImage != null && ((newi == oldi + 1 && newj == oldj && oldi < 2 &&  images[newi,newj]==null) || (newi == oldi - 1 && newj == oldj && oldi >= 1 && images[newi, newj] == null)
+                || (newi == oldi && newj == oldj + 1 && oldj < 2 && images[newi, newj] == null) || (newi == oldi && newj == oldj - 1 && oldj >= 1 && images[newi, newj] == null))
                 && newi < 3 && newj < 3)
             {
                 Canvas.SetLeft(selectedImage, newi * (imageWidth + 5));
                 Canvas.SetTop(selectedImage, newj * (imageHeight + 5));
                 images[newi, newj] = images[oldi, oldj];
+                images[oldi, oldj] = null;
                 SwapNum(ref imgID[newj, newi], ref imgID[oldj, oldi]);
             }
             else
@@ -302,7 +303,6 @@ namespace EightPuzzle
             var screen = new OpenFileDialog();
             if (screen.ShowDialog() == true)
             {
-
                 var reader = new StreamReader(screen.FileName);
                 // 1st line
                 var firstLine = reader.ReadLine();
@@ -319,10 +319,11 @@ namespace EightPuzzle
                 // doc bitmap
                 var thirdLine = reader.ReadLine();
                 tokens = thirdLine.Split(new String[] { "///" }, StringSplitOptions.RemoveEmptyEntries);
-                Debug.WriteLine(tokens[1]);
-                bitmap= new BitmapImage(new Uri(tokens[1]));
+                var fileName = tokens[1];
+                Debug.Write(fileName);
+                bitmap = new BitmapImage(new Uri(fileName));
                 originalImage.Source = new BitmapImage(new Uri(tokens[1]));
-                Debug.WriteLine(bitmap);
+                //Debug.WriteLine(bitmap);
 
                 // Game state
                 int[,] a = new int[3, 3];
