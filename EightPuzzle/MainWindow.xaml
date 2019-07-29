@@ -7,56 +7,56 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" 
         KeyDown="Window_KeyDown">
-    <Canvas Background="White" Name="container" MouseLeftButtonDown="Container_MouseLeftButtonDown"
-                MouseMove="Container_MouseMove"
-                MouseLeftButtonUp="Container_MouseLeftButtonUp" Margin="10 10 0 0" >
+    <Canvas >
+        <Canvas Background="White" Name="container" Width="436" Height="409"
+                    MouseLeftButtonDown="Container_MouseLeftButtonDown"
+                    MouseMove="Container_MouseMove"
+                    MouseLeftButtonUp="Container_MouseLeftButtonUp" Canvas.Left="10" Canvas.Top="10">
 
+            <Border Name ="mainFrame" BorderBrush="Black" IsHitTestVisible="True" BorderThickness="1" Width="436" Canvas.Top="-2" Height="390" Canvas.Left="-2"/>
+        </Canvas>
+        <Canvas>
+            <Border BorderBrush="Black" BorderThickness="1" Height="170" Width="154" Canvas.Left="598" Canvas.Top="23" />
+            <Border BorderBrush="Black" BorderThickness="1" Height="118" Width="136" Canvas.Left="608" Canvas.Top="27"/>
+            <Border BorderBrush="Black" BorderThickness="1" Height="51" Width="130" Canvas.Left="612" Canvas.Top="207"/>
+            <Button Name="openButton" Width="123" Height="25" Background="Gold" Click="OpenButton_Click" Canvas.Left="612" Canvas.Top="155">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="images/image.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="3 0 2 0" RenderTransformOrigin="0.65,0.5"/>
+                    <TextBlock Text="Choose image" VerticalAlignment="Center" FontWeight="SemiBold" />
+                </StackPanel>
+            </Button>
 
+            <Image Name ="originalImage" Canvas.Top="30" Canvas.Left="612" Height="111" Width="128" Source="images/default.jpg" RenderOptions.BitmapScalingMode="HighQuality" Stretch="Fill"/>
 
-        <Border Name ="mainFrame" BorderBrush="Black" IsHitTestVisible="True" BorderThickness="1" Width="436" Canvas.Top="-2" Height="390" Canvas.Left="-2"/>
+            <TextBlock Name="CountDown" Width="130" Height="50" Canvas.Left="612" Canvas.Top="208" FontSize="35" TextAlignment="Center" Foreground="Red" >00:03:00</TextBlock>
 
+            <Button Name="playButton" Click="playButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="264">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="images/play-button.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
+                    <TextBlock Text="Play" VerticalAlignment="Center" FontWeight="SemiBold" />
+                </StackPanel>
+            </Button>
 
+            <Button Name="pauseButton" Click="pauseButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="299">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="images/rounded-pause-button.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
+                    <TextBlock Text="Pause" VerticalAlignment="Center" FontWeight="SemiBold" />
+                </StackPanel>
+            </Button>
 
-        <Border BorderBrush="Black" BorderThickness="1" Height="170" Width="154" Canvas.Left="598" Canvas.Top="23" />
-        <Border BorderBrush="Black" BorderThickness="1" Height="118" Width="136" Canvas.Left="608" Canvas.Top="27"/>
-        <Border BorderBrush="Black" BorderThickness="1" Height="51" Width="130" Canvas.Left="612" Canvas.Top="207"/>
-        <Button Name="openButton"  Width="123" Height="25" Background="Gold" Click="OpenButton_Click" Canvas.Left="612" Canvas.Top="155">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="images/image.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="3 0 2 0" RenderTransformOrigin="0.65,0.5"/>
-                <TextBlock Text="Choose image" VerticalAlignment="Center" FontWeight="SemiBold" />
-            </StackPanel>
-        </Button>
+            <Button Name="saveButton" Click="SaveButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="333">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="images/save.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
+                    <TextBlock Text="Save" VerticalAlignment="Center" FontWeight="SemiBold" />
+                </StackPanel>
+            </Button>
 
-        <Image Name ="originalImage" Canvas.Top="30" Canvas.Left="612" Height="111" Width="128" Source="images/default.jpg" RenderOptions.BitmapScalingMode="HighQuality" Stretch="Fill"/>
-
-        <TextBlock Name="CountDown" Width="130" Height="50" Canvas.Left="612" Canvas.Top="208" FontSize="35" TextAlignment="Center" Foreground="Red" >00:03:00</TextBlock>
-
-        <Button Name="playButton" Click="playButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="264">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="images/play-button.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
-                <TextBlock Text="Play" VerticalAlignment="Center" FontWeight="SemiBold" />
-            </StackPanel>
-        </Button>
-
-        <Button Name="pauseButton" Click="pauseButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="299">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="images/rounded-pause-button.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
-                <TextBlock Text="Pause" VerticalAlignment="Center" FontWeight="SemiBold" />
-            </StackPanel>
-        </Button>
-
-        <Button Name="saveButton" Click="SaveButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="333">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="images/save.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
-                <TextBlock Text="Save" VerticalAlignment="Center" FontWeight="SemiBold" />
-            </StackPanel>
-        </Button>
-
-        <Button Name="loadButton" Click="LoadButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="368">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="images/load.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
-                <TextBlock Text="Load" VerticalAlignment="Center" FontWeight="SemiBold" />
-            </StackPanel>
-        </Button>
+            <Button Name="loadButton" Click="LoadButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="368">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="images/load.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
+                    <TextBlock Text="Load" VerticalAlignment="Center" FontWeight="SemiBold" />
+                </StackPanel>
+            </Button>
+        </Canvas>
     </Canvas>
 </Window>

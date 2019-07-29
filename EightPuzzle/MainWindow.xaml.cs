@@ -41,7 +41,7 @@ namespace EightPuzzle
         // kich thuoc anh nho
         int imageWidth;
         int imageHeight;
-
+        int fullImageWidth = 420;
         int padding = 5;
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
@@ -54,7 +54,7 @@ namespace EightPuzzle
                 Debug.WriteLine(screen.FileName);
                 var orgImage = bitmap;
                 originalImage.Source = new BitmapImage(new Uri(screen.FileName));
-                var fullImageWidth = 420;
+                
                 imageWidth = (int)fullImageWidth / 3;
                 imageHeight = (int)(fullImageWidth * bitmap.Height / bitmap.Width) / 3;
                 mainFrame.Height = imageHeight * 3 + 15;
@@ -78,6 +78,7 @@ namespace EightPuzzle
                                 ((int)bitmap.PixelWidth / 3), ((int)bitmap.PixelHeight / 3)));
 
                             // Tao giao dien
+                           
                             var imageView = new Image();
                             imageView.Source = cropped;
                             imageView.Width = imageWidth;
@@ -158,9 +159,9 @@ namespace EightPuzzle
         int maxj = -1;
         private void Container_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            isDragging = true;
+            
             var position = e.GetPosition(this);
-
+            selectedImage = null;
 
             oldi = (int)(position.X / (imageWidth + 5));
             oldj = (int)(position.Y / (imageHeight + 5));
@@ -169,6 +170,8 @@ namespace EightPuzzle
             {
                 selectedImage = images[oldi, oldj];
             }
+
+            isDragging = selectedImage != null;
         }
 
         private void Container_MouseMove(object sender, MouseEventArgs e)
@@ -205,9 +208,16 @@ namespace EightPuzzle
 
         private void Container_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            
             isDragging = false;
+            if (selectedImage == null)
+            {
+                e.Handled = true;
+                return;
+            }
 
-            if (selectedImage != null && ((newi == oldi + 1 && newj == oldj && oldi < 2 && images[newi, newj] == null) || (newi == oldi - 1 && newj == oldj && oldi >= 1 && images[newi, newj] == null)
+            if (selectedImage != null && (
+                (newi == oldi + 1 && newj == oldj && oldi < 2 && images[newi, newj] == null) || (newi == oldi - 1 && newj == oldj && oldi >= 1 && images[newi, newj] == null)
                 || (newi == oldi && newj == oldj + 1 && oldj < 2 && images[newi, newj] == null) || (newi == oldi && newj == oldj - 1 && oldj >= 1 && images[newi, newj] == null))
                 && newi < 3 && newj < 3)
             {
@@ -236,7 +246,7 @@ namespace EightPuzzle
             if (isWin() == true)
             {
                 Timer.Stop();
-                MessageBox.Show("You Win");
+                MessageBox.Show("You Win", "Result", MessageBoxButton.OK, MessageBoxImage.Stop);
                 isEnded = true;
             }
         }
@@ -263,7 +273,7 @@ namespace EightPuzzle
             else
             {
                 Timer.Stop();
-                MessageBox.Show("Time out. You lose!");
+                MessageBox.Show("Time out. You lose!","Result",MessageBoxButton.OK, MessageBoxImage.Stop);
                 isEnded = true;
             }
         }
@@ -275,7 +285,7 @@ namespace EightPuzzle
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            //Timer.Stop();
+            Timer.Stop();
             var screen = new SaveFileDialog();
 
             if (screen.ShowDialog() == true)
@@ -320,7 +330,7 @@ namespace EightPuzzle
                 Timer_Tick(sender, e);
                 // doc bitmap
                 var thirdLine = reader.ReadLine();
-                tokens = thirdLine.Split(new String[] { "///" }, StringSplitOptions.RemoveEmptyEntries);
+                tokens = thirdLine.Split(new String[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
                 var fileName = tokens[1];
                 Debug.Write(fileName);
                 bitmap = new BitmapImage(new Uri(fileName));
@@ -347,6 +357,10 @@ namespace EightPuzzle
                 a[1, 2] = int.Parse(tokens[1]);
                 a[2, 2] = int.Parse(tokens[2]);
 
+                imageWidth = (int)fullImageWidth / 3;
+                imageHeight = (int)(fullImageWidth * bitmap.Height / bitmap.Width) / 3;
+
+                mainFrame.Height = imageHeight * 3 + 15;
                 //// Giao dieenj
                 for (int i = 0; i < 3; i++)
                 {
@@ -416,12 +430,12 @@ namespace EightPuzzle
                 }
                 else
                 {
-                    MessageBox.Show("Không thể thực hiện bước đi này!");
+                    MessageBox.Show("Không thể thực hiện bước đi này!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 if (isWin())
                 {
-                    MessageBox.Show("You Win");
+                    MessageBox.Show("You Win", "Result", MessageBoxButton.OK, MessageBoxImage.Stop);
                 }
                 Debug.Write("Toa do moi la :" + oldi + " " + oldj);
                 Debug.WriteLine("");
@@ -449,12 +463,12 @@ namespace EightPuzzle
                 }
                 else
                 {
-                    MessageBox.Show("Không thể thực hiện bước đi này!");
+                    MessageBox.Show("Không thể thực hiện bước đi này!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 if (isWin())
                 {
-                    MessageBox.Show("You Win");
+                    MessageBox.Show("You Win", "Result", MessageBoxButton.OK, MessageBoxImage.Stop);
                 }
             }
 
@@ -479,12 +493,12 @@ namespace EightPuzzle
                 }
                 else
                 {
-                    MessageBox.Show("Không thể thực hiện bước đi này!");
+                    MessageBox.Show("Không thể thực hiện bước đi này!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 if (isWin())
                 {
-                    MessageBox.Show("You Win");
+                    MessageBox.Show("You Win", "Result", MessageBoxButton.OK, MessageBoxImage.Stop);
                 }
             }
             else if (e.Key == Key.Right)
@@ -508,12 +522,12 @@ namespace EightPuzzle
                 }
                 else
                 {
-                    MessageBox.Show("Không thể thực hiện bước đi này!");
+                    MessageBox.Show("Không thể thực hiện bước đi này!","ERROR",MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 if (isWin())
                 {
-                    MessageBox.Show("You Win");
+                    MessageBox.Show("You Win", "Result",MessageBoxButton.OK,MessageBoxImage.Stop);
                 }
             }
 
