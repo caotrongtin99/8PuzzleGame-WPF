@@ -115,5 +115,17 @@
   <ItemGroup>
     <Resource Include="images\default.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\puzzle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\restart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icon-restart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\refresh-page-option.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

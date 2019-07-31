@@ -1,0 +1,15 @@
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\bin\Release\EightPuzzle.exe.config
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\bin\Release\EightPuzzle.exe
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\bin\Release\EightPuzzle.pdb
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\EightPuzzle.csprojAssemblyReference.cache
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\MainWindow.g.cs
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\App.g.cs
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\EightPuzzle_MarkupCompile.cache
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\EightPuzzle_MarkupCompile.lref
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\MainWindow.baml
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\EightPuzzle.g.resources
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\EightPuzzle.Properties.Resources.resources
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\EightPuzzle.csproj.GenerateResource.cache
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\EightPuzzle.csproj.CoreCompileInputs.cache
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\EightPuzzle.exe
+C:\Users\caotr\OneDrive\Desktop\EightPuzzleGame-WPF\EightPuzzle\obj\Release\EightPuzzle.pdb

@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/default.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/refresh-page-option.png")]
 
 
