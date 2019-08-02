@@ -24,9 +24,40 @@ namespace EightPuzzle
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow()  
         {
             InitializeComponent();
+        }
+
+        public class AutoClosingMessageBox
+        {
+            System.Threading.Timer _timeoutTimer;
+            string _caption;
+            AutoClosingMessageBox(string text, string caption, int timeout)
+            {
+                _caption = caption;
+                _timeoutTimer = new System.Threading.Timer(OnTimerElapsed,
+                    null, timeout, System.Threading.Timeout.Infinite);
+                using (_timeoutTimer)
+                    MessageBox.Show(text, caption);
+                
+            }
+            public static void Show(string text, string caption, int timeout)
+            {
+                new AutoClosingMessageBox(text, caption, timeout);
+            }
+            void OnTimerElapsed(object state)
+            {
+                IntPtr mbWnd = FindWindow("#32770", _caption); // lpClassName is #32770 for MessageBox
+                if (mbWnd != IntPtr.Zero)
+                    SendMessage(mbWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                _timeoutTimer.Dispose();
+            }
+            const int WM_CLOSE = 0x0010;
+            [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
+            static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+            [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+            static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
         }
         BitmapImage bitmap;
        
@@ -46,7 +77,7 @@ namespace EightPuzzle
         // kich thuoc anh nho
         int imageWidth;
         int imageHeight;
-        int fullImageWidth = 420;
+        int fullImageWidth = 430;
         int padding = 5;
         #region OpenImage
         private void OpenButton_Click(object sender, RoutedEventArgs e)
@@ -55,8 +86,17 @@ namespace EightPuzzle
 
             if (screen.ShowDialog() == true)
             {
+                try
+                {
+                    bitmap = new BitmapImage(new Uri(screen.FileName));
 
-                bitmap = new BitmapImage(new Uri(screen.FileName));
+                }
+                catch(System.NotSupportedException)
+                {
+                    MessageBox.Show("Please select the image file!", "WARING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    OpenButton_Click(sender, e);
+                    return;
+                }
                 Debug.WriteLine(screen.FileName);
                 var orgImage = bitmap;
                 originalImage.Source = new BitmapImage(new Uri(screen.FileName));
@@ -125,6 +165,13 @@ namespace EightPuzzle
             MessageBoxResult res = MessageBox.Show("Are you ready?", "Start Game", MessageBoxButton.OK, MessageBoxImage.Question);
             if (res == MessageBoxResult.OK)
             {
+                Debug.Write("1");
+                AutoClosingMessageBox.Show("3", "Countdown", 1000);
+                Debug.Write("2");
+                AutoClosingMessageBox.Show("2", "Countdown", 1000);
+                Debug.Write("3");
+                AutoClosingMessageBox.Show("1", "Countdown", 1000);
+                AutoClosingMessageBox.Show("START", "Countdown", 500);
                 if (isRestart || isLoaded)
                 {
                     time = 180;
@@ -495,6 +542,13 @@ namespace EightPuzzle
 
                     }
                 }
+                var mainBorder = new Border();
+                mainBorder.Height = imageHeight * 3 + 25;
+                mainBorder.Width = 440;
+                Canvas.SetLeft(mainBorder, 3);
+                Canvas.SetTop(mainBorder, 3);
+                mainBorder.BorderThickness = new Thickness(1,1,1,1);
+                container.Children.Add(mainBorder);
                 // Voi 
                 Debug.Write(isEnded);
                 Debug.Write(time);

@@ -18,7 +18,7 @@
                     MouseMove="Container_MouseMove"
                     MouseLeftButtonUp="Container_MouseLeftButtonUp" Canvas.Left="10" Canvas.Top="10">
 
-            <Border Name ="mainFrame" BorderBrush="Black" BorderThickness="1,1,1,1" IsHitTestVisible="True"  Width="436" Canvas.Top="-2" Height="390" Canvas.Left="-2">
+            <Border Name ="mainFrame" BorderBrush="Black" BorderThickness="1,1,1,1" IsHitTestVisible="True"  Width="446" Canvas.Top="-2" Height="390" Canvas.Left="-2">
             </Border>
         </Canvas>
         <!--PROCESSING FRAME-->
@@ -32,7 +32,7 @@
                 </Border.Background>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Height="122" Width="136" Canvas.Left="544" Canvas.Top="19"/>
-            <Border BorderBrush="Black" BorderThickness="2,2,2,2" Height="51" Width="130" Canvas.Left="544" Canvas.Top="207">
+            <Border BorderBrush="Black" BorderThickness="2,2,2,2" Height="51" Width="130" Canvas.Left="550" Canvas.Top="207">
                 <Border.Background>
                     <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
                         <GradientStop Color="#FFFFC934" Offset="0"/>
@@ -47,11 +47,11 @@
                 </StackPanel>
             </Button>
 
-            <Image Name ="originalImage" Canvas.Top="19" Canvas.Left="552" Height="111" Width="128" Source="images/default.jpg" RenderOptions.BitmapScalingMode="HighQuality" Stretch="Fill"/>
+            <Image Name ="originalImage" Canvas.Top="24" Canvas.Left="547" Height="111" Width="128" Source="images/default.jpg" RenderOptions.BitmapScalingMode="HighQuality" Stretch="Fill"/>
 
-            <TextBlock Name="CountDown" Width="130" Height="50" Canvas.Left="544" Canvas.Top="207" 
+            <TextBlock Name="CountDown" Width="130" Height="50" Canvas.Left="549" Canvas.Top="207" 
                        FontSize="35" TextAlignment="Center" Foreground="Red" >00:03:00</TextBlock>
-            <Border Canvas.Left="562" Canvas.Top="264" CornerRadius="10">
+            <Border Canvas.Left="570" Canvas.Top="264" CornerRadius="10">
                 <Button Name="Restart" Click="Restart_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="264">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="images/refresh-page-option.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
@@ -72,7 +72,7 @@
                 </Button>
             </Border>
 
-            <Border Canvas.Left="562" Canvas.Top="299" CornerRadius="10" >
+            <Border Canvas.Left="570" Canvas.Top="299" CornerRadius="10" >
                 <Button Name="pauseButton" Click="pauseButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="299">
                     <StackPanel Orientation="Horizontal">
                         <Image Name="pauseImage" Source="images/rounded-pause-button.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
@@ -93,7 +93,7 @@
                 </Button>
             </Border>
 
-            <Border  Canvas.Left="562" Canvas.Top="333">
+            <Border  Canvas.Left="570" Canvas.Top="333">
                 <Button Name="saveButton" Click="SaveButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="333">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="images/save.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
@@ -114,7 +114,7 @@
                 </Button>
             </Border>
 
-            <Border Canvas.Left="562" Canvas.Top="368">
+            <Border Canvas.Left="570" Canvas.Top="368">
                 <Button Name="loadButton" Click="LoadButton_Click" Background="Gold" Width="89" Height="30" Cursor="Hand" Canvas.Left="631" Canvas.Top="368">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="images/load.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="-5 0 5 0" RenderTransformOrigin="0.65,0.5"/>
